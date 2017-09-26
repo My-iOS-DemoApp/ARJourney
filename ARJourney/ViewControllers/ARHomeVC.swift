@@ -19,6 +19,7 @@ class ARHomeVC: UIViewController {
         super.viewDidLoad()
         
         setupSceneView()
+        addNormalCubeScene()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +48,11 @@ class ARHomeVC: UIViewController {
         /* Turn on debug option, to see
          * the area tracking performing well or not. */
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+    }
+    
+    private func addNormalCubeScene() {
+        let cubeScene = CubeScene(CubeType: .normal)
+        sceneView.scene = cubeScene
     }
     
     

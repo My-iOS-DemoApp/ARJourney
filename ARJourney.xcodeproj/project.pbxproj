@@ -19,6 +19,7 @@
 		C85F5B771F7A4B28005D800D /* TestExtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B761F7A4B28005D800D /* TestExtn.swift */; };
 		C85F5B791F7A4BB1005D800D /* ARAppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B781F7A4BB1005D800D /* ARAppUtility.swift */; };
 		C85F5B7B1F7A4C69005D800D /* ARGlobalK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B7A1F7A4C69005D800D /* ARGlobalK.swift */; };
+		C85F5B7E1F7A63B4005D800D /* CubeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B7D1F7A63B4005D800D /* CubeFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		C85F5B761F7A4B28005D800D /* TestExtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExtn.swift; sourceTree = "<group>"; };
 		C85F5B781F7A4BB1005D800D /* ARAppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARAppUtility.swift; sourceTree = "<group>"; };
 		C85F5B7A1F7A4C69005D800D /* ARGlobalK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARGlobalK.swift; sourceTree = "<group>"; };
+		C85F5B7D1F7A63B4005D800D /* CubeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		C85F5B551F7A4604005D800D /* ARJourney */ = {
 			isa = PBXGroup;
 			children = (
+				C85F5B7C1F7A6372005D800D /* Factories */,
 				C85F5B6A1F7A491F005D800D /* Nodes */,
 				C85F5B6B1F7A491F005D800D /* Scenes */,
 				C85F5B6C1F7A491F005D800D /* ViewControllers */,
@@ -131,6 +134,14 @@
 				C85F5B761F7A4B28005D800D /* TestExtn.swift */,
 			);
 			path = Extentions;
+			sourceTree = "<group>";
+		};
+		C85F5B7C1F7A6372005D800D /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				C85F5B7D1F7A63B4005D800D /* CubeFactory.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +223,7 @@
 				C85F5B791F7A4BB1005D800D /* ARAppUtility.swift in Sources */,
 				C85F5B5B1F7A4604005D800D /* ViewController.swift in Sources */,
 				C85F5B571F7A4604005D800D /* AppDelegate.swift in Sources */,
+				C85F5B7E1F7A63B4005D800D /* CubeFactory.swift in Sources */,
 				C85F5B711F7A4A11005D800D /* Cube.swift in Sources */,
 				C85F5B731F7A4A72005D800D /* CubeScene.swift in Sources */,
 			);
