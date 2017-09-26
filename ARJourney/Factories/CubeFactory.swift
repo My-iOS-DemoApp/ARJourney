@@ -8,6 +8,7 @@
 
 import Foundation
 import SceneKit
+import ARKit
 
 struct CubeFactory {
     
@@ -33,7 +34,7 @@ struct CubeFactory {
         
         
         // position the cube just in front of camera
-        let cubePosition = SCNVector3(0.3, 0, -0.55)
+        let cubePosition = SCNVector3(0.15, -0.3, -0.5)
         
         // create physics body
         
@@ -69,6 +70,29 @@ struct CubeFactory {
         
         let physicsCube = Cube(box: boxGeometry, cubePosition: cubePosition, cubePhysicsBody: physicsBody)
         return physicsCube
+    }
+    
+    static func createDropCube(hitTestResult result: ARHitTestResult) -> Cube {
+        let dimension: CGFloat = 0.1
+        // The 3D Cube geometry we want to draw
+        let boxGeometry = SCNBox(width: dimension, height: dimension, length: dimension, chamferRadius: 0.0)
+        
+        // assign color to the cube
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.red
+        boxGeometry.materials = [material]
+        
+        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        physicsBody.mass = 2
+        
+        // position the cube slightly above the point user tapped
+        let insertionYOffset:Float = 0.5
+        let hitPosition = result.worldTransform.columns.3
+        let cubePosition = SCNVector3(hitPosition.x, hitPosition.y + insertionYOffset, hitPosition.z)
+        
+        let dropCube = Cube(box: boxGeometry, cubePosition: cubePosition, cubePhysicsBody: physicsBody)
+        return dropCube
+        
     }
     
     

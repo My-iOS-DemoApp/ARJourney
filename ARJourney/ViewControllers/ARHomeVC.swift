@@ -22,6 +22,11 @@ class ARHomeVC: UIViewController {
         //addNormalCubeScene()
         //addPhysicsCubeScene()
         
+        // assign tap gesture to sceneView
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ARHomeVC.handleSingleTap))
+        tapGesture.numberOfTapsRequired = 1
+        sceneView.addGestureRecognizer(tapGesture)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +77,26 @@ class ARHomeVC: UIViewController {
     private func addCubeScene() {
         let cubeScene = CubeScene(CubeType: .all)
         sceneView.scene = cubeScene
+    }
+    
+    @objc private func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        
+        let tapPoint = recognizer.location(in: sceneView)
+        
+        /* Throws a ray from camera to the
+         * estimate horizontal plane, determined for the current frame.
+         * return results if the throwed ray intersects with the
+         * estimated horizontal plane.
+         */
+        let hitTestResults: [ARHitTestResult] = sceneView.hitTest(tapPoint, types: .estimatedHorizontalPlane)
+        
+        if hitTestResults.count == 0 {return}
+        
+        guard let hitResult = hitTestResults.first else {return}
+        
+        let dropCube = CubeFactory.createDropCube(hitTestResult: hitResult)
+        sceneView.scene.rootNode.addChildNode(dropCube)
+        
     }
     
     
