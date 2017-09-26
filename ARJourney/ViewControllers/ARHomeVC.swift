@@ -19,7 +19,9 @@ class ARHomeVC: UIViewController {
         super.viewDidLoad()
         
         setupSceneView()
-        addNormalCubeScene()
+        //addNormalCubeScene()
+        //addPhysicsCubeScene()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +32,12 @@ class ARHomeVC: UIViewController {
         
         // Run the view's session
         sceneView.session.run(configuration)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        addPhysicsCubeScene()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -52,6 +60,11 @@ class ARHomeVC: UIViewController {
     
     private func addNormalCubeScene() {
         let cubeScene = CubeScene(CubeType: .normal)
+        sceneView.scene = cubeScene
+    }
+    
+    private func addPhysicsCubeScene() {
+        let cubeScene = CubeScene(CubeType: .physicsBody)
         sceneView.scene = cubeScene
     }
     
