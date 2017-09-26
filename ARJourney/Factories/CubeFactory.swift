@@ -26,8 +26,14 @@ struct CubeFactory {
         // The 3D Cube geometry we want to draw
         let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.0)
         
+        // assign color to the cube
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.green
+        boxGeometry.materials = [material]
+        
+        
         // position the cube just in front of camera
-        let cubePosition = SCNVector3(0, 0, -0.5)
+        let cubePosition = SCNVector3(0.3, 0, -0.55)
         
         // create physics body
         
@@ -43,15 +49,23 @@ struct CubeFactory {
         physicsBody.isAffectedByGravity = false
         physicsBody.mass = 2 // Unit is in kilo gram (kg)
         
-        // create force direction
-        let force = SCNVector3(0.3, 0, -0.5)
+        // create force direction and magnitude.
+        let force = SCNVector3(0.3, 0, 0)
+        
+        // create point/position where the force or impulse should apply
+        //let fPosition = SCNVector3(0.2, 0, 0)
         
         /*
          * applies linear force in center of mass
-         * if impulse in true then applied for one frame
-         * other wise force will affect continuously.
+         * if impulse is false then applied for one frame
+         * treat direction param as a force, Unit Newton
+         * other wise force will affect continuously/
+         * instantaneous change in momentum.
+         * Unit newton-second
          */
-        physicsBody.applyForce(force, asImpulse: true)
+        physicsBody.applyForce(force, asImpulse: false)
+        
+        //physicsBody.applyForce(force, at: fPosition, asImpulse: false)
         
         let physicsCube = Cube(box: boxGeometry, cubePosition: cubePosition, cubePhysicsBody: physicsBody)
         return physicsCube

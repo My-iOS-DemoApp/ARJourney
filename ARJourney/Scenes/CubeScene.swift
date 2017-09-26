@@ -12,21 +12,33 @@ import SceneKit
 class CubeScene: SCNScene {
 
     enum CubeType {
-        case normal, physicsBody
+        case normal, physicsBody, all
     }
     
     init(CubeType type: CubeType) {
         super.init()
         
-        let cube: Cube
-        switch type {
-        case .normal:
-            cube = CubeFactory.createNormalCube()
-        case .physicsBody:
-            cube = CubeFactory.createPhysicsCube()
+        if type == .all {
+            let nCube = CubeFactory.createNormalCube()
+            let pCube = CubeFactory.createPhysicsCube()
+            rootNode.addChildNode(nCube)
+            rootNode.addChildNode(pCube)
+            
+        } else {
+            let cube: Cube
+            switch type {
+            case .normal:
+                cube = CubeFactory.createNormalCube()
+            case .physicsBody:
+                cube = CubeFactory.createPhysicsCube()
+            default:
+                cube = CubeFactory.createNormalCube()
+                break
+            }
+            
+            rootNode.addChildNode(cube)
         }
         
-        rootNode.addChildNode(cube)
         
         
     }

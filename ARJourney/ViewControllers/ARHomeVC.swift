@@ -37,7 +37,8 @@ class ARHomeVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        addPhysicsCubeScene()
+        //addPhysicsCubeScene()
+        addCubeScene()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -65,6 +66,11 @@ class ARHomeVC: UIViewController {
     
     private func addPhysicsCubeScene() {
         let cubeScene = CubeScene(CubeType: .physicsBody)
+        sceneView.scene = cubeScene
+    }
+    
+    private func addCubeScene() {
+        let cubeScene = CubeScene(CubeType: .all)
         sceneView.scene = cubeScene
     }
     
