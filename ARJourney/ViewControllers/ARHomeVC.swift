@@ -63,6 +63,13 @@ class ARHomeVC: UIViewController {
         sceneView.session.pause()
     }
     
+    //MARK:- Button Actions
+    @IBAction func stopPlaneDetection(_ sender: UISwitch) {
+        if !sender.isOn {
+            stopDetection()
+        }
+    }
+    
     //MARK:- Private Methods
     private func setupSceneView() {
         sceneView.autoenablesDefaultLighting = true
@@ -72,6 +79,12 @@ class ARHomeVC: UIViewController {
         /* Turn on debug option, to see
          * the area tracking performing well or not. */
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+    }
+    
+    private func stopDetection() {
+        guard let configuration = sceneView.session.configuration as? ARWorldTrackingConfiguration else {return}
+        configuration.planeDetection = .init(rawValue: 0)
+        sceneView.session.run(configuration)
     }
     
     private func addNormalCubeScene() {
@@ -98,7 +111,7 @@ class ARHomeVC: UIViewController {
          * return results if the throwed ray intersects with the
          * estimated horizontal plane.
          */
-        let hitTestResults: [ARHitTestResult] = sceneView.hitTest(tapPoint, types: .estimatedHorizontalPlane)
+        let hitTestResults: [ARHitTestResult] = sceneView.hitTest(tapPoint, types: .existingPlaneUsingExtent)
         
         if hitTestResults.count == 0 {return}
         

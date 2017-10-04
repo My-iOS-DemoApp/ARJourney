@@ -95,6 +95,10 @@ class Plane: SCNNode {
         planeGeometry.width = CGFloat(anchor.extent.x)
         planeGeometry.height = CGFloat(anchor.extent.z)
         position = SCNVector3(anchor.center.x, 0, anchor.center.z)
+        
+        guard let planeNode = childNodes.first else {return}
+        planeNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        
         setTextureScale()
     }
     

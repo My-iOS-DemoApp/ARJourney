@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,12 +28,37 @@
         <scene sceneID="Z2w-Sw-mPC">
             <objects>
                 <viewController storyboardIdentifier="ARHomeVC" id="p5X-Ts-d75" customClass="ARHomeVC" customModule="ARJourney" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="dse-4H-bdz">
+                    <view key="view" contentMode="scaleToFill" id="aVN-oW-JbG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKf-Re-lx5">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </arscnView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cXa-lp-0Z8">
+                                <rect key="frame" x="16" y="607" width="62" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="wE0-5a-U8x"/>
+                                    <constraint firstAttribute="width" constant="60" id="xb3-AM-qL8"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="stopPlaneDetection:" destination="p5X-Ts-d75" eventType="valueChanged" id="jGt-0T-okn"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wuj-R2-u1q" firstAttribute="bottom" secondItem="cXa-lp-0Z8" secondAttribute="bottom" constant="20" id="AyU-lB-nF3"/>
+                            <constraint firstItem="wuj-R2-u1q" firstAttribute="bottom" secondItem="KKf-Re-lx5" secondAttribute="bottom" id="FaM-TL-SUd"/>
+                            <constraint firstItem="cXa-lp-0Z8" firstAttribute="leading" secondItem="wuj-R2-u1q" secondAttribute="leading" constant="16" id="H4n-0D-S6x"/>
+                            <constraint firstItem="KKf-Re-lx5" firstAttribute="top" secondItem="wuj-R2-u1q" secondAttribute="top" id="HSW-Bl-sxL"/>
+                            <constraint firstItem="wuj-R2-u1q" firstAttribute="trailing" secondItem="KKf-Re-lx5" secondAttribute="trailing" id="Inx-jO-AQm"/>
+                            <constraint firstItem="KKf-Re-lx5" firstAttribute="leading" secondItem="wuj-R2-u1q" secondAttribute="leading" id="Xp8-5R-U30"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wuj-R2-u1q"/>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="dse-4H-bdz" id="h1Q-ig-bC2"/>
+                        <outlet property="sceneView" destination="KKf-Re-lx5" id="BFP-jY-sIe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5g-Le-grl" userLabel="First Responder" sceneMemberID="firstResponder"/>
