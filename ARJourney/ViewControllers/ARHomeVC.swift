@@ -14,6 +14,9 @@ class ARHomeVC: UIViewController {
     @IBOutlet private var sceneView: ARSCNView!
     private var planes = [UUID : Plane]()
     
+    // Create a session configuration
+    private var configuration = ARWorldTrackingConfiguration()
+    
     
     //MARK:- View Life Cycle
     override func viewDidLoad() {
@@ -22,6 +25,8 @@ class ARHomeVC: UIViewController {
         setupSceneView()
         //addNormalCubeScene()
         //addPhysicsCubeScene()
+        
+        addCubeScene()
         
         // assign tap gesture to sceneView
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ARHomeVC.handleSingleTap))
@@ -38,22 +43,19 @@ class ARHomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        
         // enable detecting horizontal plane
         // otherwise renderer delegate methods will not get called.
         configuration.planeDetection = .horizontal
         
         // Run the view's session
-        sceneView.session.run(configuration)
+        sceneView.session.run(configuration, options: [.resetTracking] )
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         //addPhysicsCubeScene()
-        addCubeScene()
+       // addCubeScene()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,9 +84,17 @@ class ARHomeVC: UIViewController {
     }
     
     private func stopDetection() {
-        guard let configuration = sceneView.session.configuration as? ARWorldTrackingConfiguration else {return}
+//        guard let arConfiguration = sceneView.session.configuration as? ARWorldTrackingConfiguration else {return}
         configuration.planeDetection = .init(rawValue: 0)
         sceneView.session.run(configuration)
+    }
+    
+    private func refresh() {
+        for (_,plane) in planes {
+            plane.remove()
+        }
+        
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors] )
     }
     
     private func addNormalCubeScene() {
@@ -175,6 +185,16 @@ extension ARHomeVC: ARSCNViewDelegate {
         
         guard let arAnchor = anchor as? ARPlaneAnchor else {return}
         planes.removeValue(forKey: arAnchor.identifier)
+    }
+    
+    func sessionInterruptionEnded(_ session: ARSession) {
+        print("Interuption get called")
+        refresh()
+    }
+    
+    func sessionWasInterrupted(_ session: ARSession) {
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        print("what is your fucking problem ??????")
     }
     
     

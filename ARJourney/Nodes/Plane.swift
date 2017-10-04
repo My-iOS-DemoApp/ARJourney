@@ -13,7 +13,7 @@ import ARKit
 class Plane: SCNNode {
 
     var anchor: ARPlaneAnchor!
-    var planeGeometry: SCNPlane!
+    var planeGeometry: SCNBox!
     
     
     init(anchor: ARPlaneAnchor) {
@@ -23,24 +23,36 @@ class Plane: SCNNode {
         let width = CGFloat(anchor.extent.x);
         let length = CGFloat(anchor.extent.z);
         
-        // Create 3D plane geometry with the dimensions reported
-        // by ARKit in the ARPlaneAchor instance
-        planeGeometry = SCNPlane(width: width, height: length)
+        // Using a SCNBox and not SCNPlane to make it easy for the geometry we add to the
+        // scene to interact with the plane.
+        
+        // For the physics engine to work properly give the plane some height so we get interactions
+        // between the plane and the gometry we add to the scene
+        let planeHeight:CGFloat = 0.01;
+        
+        planeGeometry = SCNBox(width: width, height: planeHeight, length: length, chamferRadius: 0)
+        
+        
+        // Since we are using a cube, we only want to render the tron grid
+        // on the top face, make the other sides transparent
+        let transparentMaterial = SCNMaterial()
+        transparentMaterial.diffuse.contents = UIColor(white: 1, alpha: 0)
         
         // Visualizing Grid for plane
         let material = SCNMaterial()
         let gridImage = UIImage(named: "art.scnassets/tron/tron-albedo.png")
         material.diffuse.contents = gridImage
-        planeGeometry.materials = [material]
+        
+        // The plane is now a cube!!
+        // so make the other 5 sides Transparent
+        planeGeometry.materials = [transparentMaterial,transparentMaterial,transparentMaterial,transparentMaterial,material,transparentMaterial]
+        
+        
         
         let planeNode = SCNNode(geometry: planeGeometry)
         
-        // Move the plane to the position reported by ARKit
-        planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z);
-        
-        // Planes in Scenekit are Vertical by Default
-        // rotate 90 degree to match planes in ARKit
-        planeNode.transform = SCNMatrix4MakeRotation(Float(-Double.pi/2), 1.0, 0.0, 0.0)
+        // Since our plane has some height, move it down to be at the actual surface
+        planeNode.position = SCNVector3Make(0, -0.05, 0);
         
         // Give the plane a physics body so that items we add to the scene interact with it
         planeNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
@@ -54,99 +66,47 @@ class Plane: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    func update(anchor: ARPlaneAnchor) {
-//        planeGeometry.width = CGFloat(anchor.extent.x)
-//        planeGeometry.height = CGFloat(anchor.extent.z)
-//
-//        // When the plane is first created it's center is 0,0,0 and the nodes
-//        // transform contains the translation parameters. As the plane is updated
-//        // the planes translation remains the same but it's center is updated so
-//        // we need to update the 3D geometry position
-//        position = SCNVector3(anchor.center.x, 0, anchor.center.z)
-//
-//        guard let planeNode = childNodes.first else {return}
-//        planeNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-//        //SCNPhysicsShape(geometry: planeGeometry, options: nil)
-//
-//        setTextureScale()
-//    }
-//
-//    func setTextureScale() {
-//        let width = Float(planeGeometry.width)
-//        let height = Float(planeGeometry.length)
-//
-//        // As the width/height of the plane updates, we want our tron grid material to
-//        // cover the entire plane, repeating the texture over and over. Also if the
-//        // grid is less than 1 unit, we don't want to squash the texture to fit, so
-//        // scaling updates the texture co-ordinates to crop the texture in that case
-//
-//        let material = planeGeometry.materials[4]
-//
-//        let scaleFactor: Float = 1;
-//        let m = SCNMatrix4MakeScale(width * scaleFactor, height * scaleFactor, 1);
-//        material.diffuse.contentsTransform = m;
-//        material.roughness.contentsTransform = m;
-//        material.metalness.contentsTransform = m;
-//        material.normal.contentsTransform = m;
-//
-//    }
+    func remove() {
+        self.removeFromParentNode()
+    }
     
     func update(anchor: ARPlaneAnchor) {
         planeGeometry.width = CGFloat(anchor.extent.x)
-        planeGeometry.height = CGFloat(anchor.extent.z)
+        planeGeometry.length = CGFloat(anchor.extent.z) // watchout this param
+        
+        // When the plane is first created it's center is 0,0,0 and the nodes
+        // transform contains the translation parameters. As the plane is updated
+        // the planes translation remains the same but it's center is updated so
+        // we need to update the 3D geometry position
         position = SCNVector3(anchor.center.x, 0, anchor.center.z)
         
         guard let planeNode = childNodes.first else {return}
-        planeNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        planeNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: planeGeometry, options: nil))
         
         setTextureScale()
     }
     
-    func setTextureScale() {
+    private func setTextureScale() {
         let width = Float(planeGeometry.width)
-        let height = Float(planeGeometry.height)
+        let height = Float(planeGeometry.length)
 
-        /* As the width/height of the plane updates, we want our tron grid
-         * material toccover the entire plane,
-         * repeating the texture over and over. Also if the
-         * grid is less than 1 unit,
-         * we don't want to squash the texture to fit,
-         * so scaling updates the texture co-ordinates
-         * to crop the texture in that case
-         */
+        // As the width/height of the plane updates, we want our tron grid material to
+        // cover the entire plane, repeating the texture over and over. Also if the
+        // grid is less than 1 unit, we don't want to squash the texture to fit, so
+        // scaling updates the texture co-ordinates to crop the texture in that case
 
-        let material = planeGeometry.materials.first
-        material?.diffuse.contentsTransform = SCNMatrix4MakeScale(width, height, 1)
-        material?.diffuse.wrapS = .repeat
-        material?.diffuse.wrapT = .repeat
+        let material = planeGeometry.materials[4]
+
+        let scaleFactor: Float = 1
+        let m = SCNMatrix4MakeScale(width * scaleFactor, height * scaleFactor, 1)
+        // these causing huge problem, like solid color plane...
+        // if off then torn is not maintaining square shape.. :( 
+       // material.diffuse.contentsTransform = m
+        material.roughness.contentsTransform = m
+        material.metalness.contentsTransform = m
+        material.normal.contentsTransform = m
+
     }
     
-//    var planeGeometry: SCNPlane!
-    
-//    func previousPlaneSetup() {
-//        /* create the 3D plane geometry with the dimension
-//         * from ARPlaneAnchor instance reported by ARKit
-//         */
-//        planeGeometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.y))
-//
-//        // Visualizing Grid for plane
-//        let material = SCNMaterial()
-//        let gridImage = UIImage(named: "art.scnassets/tron/tron-albedo.png")
-//        material.diffuse.contents = gridImage
-//
-//        planeGeometry.materials = [material]
-//
-//        let planeNode = SCNNode(geometry: planeGeometry)
-//
-//        // move the plane to the position reported by ARKit
-//        planeNode.position = SCNVector3(anchor.center.x, 0, anchor.center.z)
-//
-//        // Plane in SceneKit by default is vertical, so we rotate it by 90
-//        // degrees to match planes in ARKit
-//        planeNode.transform = SCNMatrix4MakeRotation(Float(-Double.pi/2), 1.0, 0.0, 0.0)
-//
-//        setTextureScale()
-//        addChildNode(planeNode)
-//    }
     
 }
