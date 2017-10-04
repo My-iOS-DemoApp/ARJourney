@@ -12,6 +12,7 @@ import ARKit
 class ARHomeVC: UIViewController {
     
     @IBOutlet private var sceneView: ARSCNView!
+    private var planes = [UUID : Plane]()
     
     
     //MARK:- View Life Cycle
@@ -29,6 +30,9 @@ class ARHomeVC: UIViewController {
         
         // setup delegate for physicsWorld contact
         sceneView.scene.physicsWorld.contactDelegate = self
+        
+        // setup delegate for ARSCNView
+        sceneView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +40,10 @@ class ARHomeVC: UIViewController {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        
+        // enable detecting horizontal plane
+        // otherwise renderer delegate methods will not get called.
+        configuration.planeDetection = .horizontal
         
         // Run the view's session
         sceneView.session.run(configuration)
@@ -130,6 +138,34 @@ extension ARHomeVC: SCNPhysicsContactDelegate {
 }
 
 
+extension ARHomeVC: ARSCNViewDelegate {
+    
+    // called when new node has been mapped to the given anchor
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        
+        guard let arAnchor = anchor as? ARPlaneAnchor else {return}
+        
+        let plane = Plane(anchor: arAnchor)
+        planes[anchor.identifier] = plane
+        node.addChildNode(plane)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        
+        guard let arAnchor = anchor as? ARPlaneAnchor else {return}
+        guard let plane = planes[arAnchor.identifier] else {return}
+        plane.update(anchor: arAnchor)
+        
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        
+        guard let arAnchor = anchor as? ARPlaneAnchor else {return}
+        planes.removeValue(forKey: arAnchor.identifier)
+    }
+    
+    
+}
 
 
 
