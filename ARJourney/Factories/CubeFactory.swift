@@ -49,6 +49,8 @@ struct CubeFactory {
          */
         physicsBody.isAffectedByGravity = false
         physicsBody.mass = 2 // Unit is in kilo gram (kg)
+        physicsBody.categoryBitMask = CollisionCategory.cube.rawValue
+        physicsBody.collisionBitMask = CollisionCategory.dropCube.rawValue
         
         // create force direction and magnitude.
         let force = SCNVector3(0.3, 0, 0)
@@ -84,11 +86,13 @@ struct CubeFactory {
         
         let physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         physicsBody.mass = 2
+        physicsBody.categoryBitMask = CollisionCategory.dropCube.rawValue
+        physicsBody.collisionBitMask = CollisionCategory.cube.rawValue
         
         // position the cube slightly above the point user tapped
         let insertionYOffset:Float = 0.5
         let hitPosition = result.worldTransform.columns.3
-        let cubePosition = SCNVector3(hitPosition.x, hitPosition.y + insertionYOffset, hitPosition.z)
+        let cubePosition = SCNVector3(hitPosition.x, hitPosition.y + insertionYOffset, -0.5) //hitPosition.z
         
         let dropCube = Cube(box: boxGeometry, cubePosition: cubePosition, cubePhysicsBody: physicsBody)
         return dropCube

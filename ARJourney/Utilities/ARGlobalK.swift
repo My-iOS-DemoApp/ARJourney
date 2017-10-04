@@ -13,8 +13,9 @@ import Foundation
 struct CollisionCategory : OptionSet {
     let rawValue: Int
     
-    static let bottom  = CollisionCategory(rawValue: 1 << 0)
+    static let bottomPlane  = CollisionCategory(rawValue: 1 << 0)
     static let cube = CollisionCategory(rawValue: 1 << 1)
+    static let dropCube = CollisionCategory(rawValue: 1 << 2)
 }
 
 

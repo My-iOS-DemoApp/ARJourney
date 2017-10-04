@@ -27,6 +27,8 @@ class ARHomeVC: UIViewController {
         tapGesture.numberOfTapsRequired = 1
         sceneView.addGestureRecognizer(tapGesture)
         
+        // setup delegate for physicsWorld contact
+        sceneView.scene.physicsWorld.contactDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,6 +101,36 @@ class ARHomeVC: UIViewController {
         
     }
     
-    
-    
 }
+
+
+extension ARHomeVC: SCNPhysicsContactDelegate {
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        print("contact delegate get called")
+        let nodeAmask = contact.nodeA.physicsBody?.categoryBitMask
+        let nodeBmask = contact.nodeB.physicsBody?.categoryBitMask
+        
+        let contactMask = nodeAmask! | nodeBmask!
+        
+        // sort out what kind of collision, dropCube or cube?
+        if (contactMask == CollisionCategory.dropCube.rawValue | CollisionCategory.cube.rawValue) {
+            
+            // find out which body is the cube and which is dropCube
+            if (contact.nodeA.physicsBody?.categoryBitMask == CollisionCategory.dropCube.rawValue) {
+                // remove the cube node [which is nodeB]
+                contact.nodeB.removeFromParentNode()
+            } else {
+                // remove the cube node [which is nodeA]
+                contact.nodeA.removeFromParentNode()
+            }
+        }
+        
+    }
+}
+
+
+
+
+
+
