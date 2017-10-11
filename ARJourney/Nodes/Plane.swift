@@ -99,9 +99,12 @@ class Plane: SCNNode {
 
         let scaleFactor: Float = 1
         let m = SCNMatrix4MakeScale(width * scaleFactor, height * scaleFactor, 1)
-        // these causing huge problem, like solid color plane...
-        // if off then torn is not maintaining square shape.. :( 
-       // material.diffuse.contentsTransform = m
+        
+        material.diffuse.contentsTransform = m
+        // tron overlaping/solid color problem solved
+        material.diffuse.wrapS = .repeat
+        material.diffuse.wrapT = .repeat
+        
         material.roughness.contentsTransform = m
         material.metalness.contentsTransform = m
         material.normal.contentsTransform = m
