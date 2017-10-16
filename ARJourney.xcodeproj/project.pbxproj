@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C812147B1F94D274004164E3 /* Extention+MultiPerpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = C812147A1F94D274004164E3 /* Extention+MultiPerpose.swift */; };
 		C81E529E1F84F54A00EC3272 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81E529D1F84F54A00EC3272 /* Plane.swift */; };
 		C85F5B571F7A4604005D800D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B561F7A4604005D800D /* AppDelegate.swift */; };
 		C85F5B591F7A4604005D800D /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = C85F5B581F7A4604005D800D /* art.scnassets */; };
@@ -17,13 +18,13 @@
 		C85F5B711F7A4A11005D800D /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B701F7A4A11005D800D /* Cube.swift */; };
 		C85F5B731F7A4A72005D800D /* CubeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B721F7A4A72005D800D /* CubeScene.swift */; };
 		C85F5B751F7A4AF5005D800D /* ARHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B741F7A4AF5005D800D /* ARHomeVC.swift */; };
-		C85F5B771F7A4B28005D800D /* TestExtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B761F7A4B28005D800D /* TestExtn.swift */; };
 		C85F5B791F7A4BB1005D800D /* ARAppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B781F7A4BB1005D800D /* ARAppUtility.swift */; };
 		C85F5B7B1F7A4C69005D800D /* ARGlobalK.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B7A1F7A4C69005D800D /* ARGlobalK.swift */; };
 		C85F5B7E1F7A63B4005D800D /* CubeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B7D1F7A63B4005D800D /* CubeFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C812147A1F94D274004164E3 /* Extention+MultiPerpose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extention+MultiPerpose.swift"; sourceTree = "<group>"; };
 		C81E529D1F84F54A00EC3272 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		C85F5B531F7A4604005D800D /* ARJourney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARJourney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C85F5B561F7A4604005D800D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,7 +37,6 @@
 		C85F5B701F7A4A11005D800D /* Cube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cube.swift; sourceTree = "<group>"; };
 		C85F5B721F7A4A72005D800D /* CubeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeScene.swift; sourceTree = "<group>"; };
 		C85F5B741F7A4AF5005D800D /* ARHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARHomeVC.swift; sourceTree = "<group>"; };
-		C85F5B761F7A4B28005D800D /* TestExtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExtn.swift; sourceTree = "<group>"; };
 		C85F5B781F7A4BB1005D800D /* ARAppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARAppUtility.swift; sourceTree = "<group>"; };
 		C85F5B7A1F7A4C69005D800D /* ARGlobalK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARGlobalK.swift; sourceTree = "<group>"; };
 		C85F5B7D1F7A63B4005D800D /* CubeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeFactory.swift; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 		C85F5B6F1F7A4935005D800D /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
-				C85F5B761F7A4B28005D800D /* TestExtn.swift */,
+				C812147A1F94D274004164E3 /* Extention+MultiPerpose.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -220,11 +220,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C85F5B771F7A4B28005D800D /* TestExtn.swift in Sources */,
 				C85F5B7B1F7A4C69005D800D /* ARGlobalK.swift in Sources */,
 				C81E529E1F84F54A00EC3272 /* Plane.swift in Sources */,
 				C85F5B751F7A4AF5005D800D /* ARHomeVC.swift in Sources */,
 				C85F5B791F7A4BB1005D800D /* ARAppUtility.swift in Sources */,
+				C812147B1F94D274004164E3 /* Extention+MultiPerpose.swift in Sources */,
 				C85F5B5B1F7A4604005D800D /* ViewController.swift in Sources */,
 				C85F5B571F7A4604005D800D /* AppDelegate.swift in Sources */,
 				C85F5B7E1F7A63B4005D800D /* CubeFactory.swift in Sources */,
