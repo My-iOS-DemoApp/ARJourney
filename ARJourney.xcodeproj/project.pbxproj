@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C812147B1F94D274004164E3 /* Extention+MultiPerpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = C812147A1F94D274004164E3 /* Extention+MultiPerpose.swift */; };
+		C812147D1F94D8E0004164E3 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C812147C1F94D8E0004164E3 /* Wall.swift */; };
+		C812147F1F94D930004164E3 /* TrackingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C812147E1F94D930004164E3 /* TrackingNode.swift */; };
 		C81E529E1F84F54A00EC3272 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81E529D1F84F54A00EC3272 /* Plane.swift */; };
 		C85F5B571F7A4604005D800D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F5B561F7A4604005D800D /* AppDelegate.swift */; };
 		C85F5B591F7A4604005D800D /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = C85F5B581F7A4604005D800D /* art.scnassets */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		C812147A1F94D274004164E3 /* Extention+MultiPerpose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extention+MultiPerpose.swift"; sourceTree = "<group>"; };
+		C812147C1F94D8E0004164E3 /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
+		C812147E1F94D930004164E3 /* TrackingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingNode.swift; sourceTree = "<group>"; };
 		C81E529D1F84F54A00EC3272 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		C85F5B531F7A4604005D800D /* ARJourney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARJourney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C85F5B561F7A4604005D800D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 			children = (
 				C81E529D1F84F54A00EC3272 /* Plane.swift */,
 				C85F5B701F7A4A11005D800D /* Cube.swift */,
+				C812147C1F94D8E0004164E3 /* Wall.swift */,
+				C812147E1F94D930004164E3 /* TrackingNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -222,7 +228,9 @@
 			files = (
 				C85F5B7B1F7A4C69005D800D /* ARGlobalK.swift in Sources */,
 				C81E529E1F84F54A00EC3272 /* Plane.swift in Sources */,
+				C812147F1F94D930004164E3 /* TrackingNode.swift in Sources */,
 				C85F5B751F7A4AF5005D800D /* ARHomeVC.swift in Sources */,
+				C812147D1F94D8E0004164E3 /* Wall.swift in Sources */,
 				C85F5B791F7A4BB1005D800D /* ARAppUtility.swift in Sources */,
 				C812147B1F94D274004164E3 /* Extention+MultiPerpose.swift in Sources */,
 				C85F5B5B1F7A4604005D800D /* ViewController.swift in Sources */,
